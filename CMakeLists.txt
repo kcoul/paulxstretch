@@ -397,6 +397,8 @@ function(sono_add_custom_plugin_target target_name product_name formats is_instr
         JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=1
         JUCE_LOAD_CURL_SYMBOLS_LAZILY=1
+        JUCE_USE_ANDROID_OBOE=1
+        JUCE_USE_OBOE_STABILIZED_CALLBACK=1
         FF_AUDIO_ALLOW_ALLOCATIONS_IN_MEASURE_BLOCK=0
         PAULXSTRETCH_BUILD_VERSION="${VERSION}"
         ${PLAT_COMPILE_DEFS} )
@@ -414,12 +416,6 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
             PUBLIC
             JUCE_JACK=1
             JUCE_ALSA=1
-    )
-elseif (CMAKE_SYSTEM_NAME STREQUAL "Android")
-    target_compile_definitions("${target_name}"
-            PUBLIC
-            JUCE_USE_ANDROID_OBOE=1
-            JUCE_USE_OBOE_STABILIZED_CALLBACK=1
     )
 endif()
 
