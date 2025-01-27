@@ -396,7 +396,6 @@ function(sono_add_custom_plugin_target target_name product_name formats is_instr
         JUCE_VST3_CAN_REPLACE_VST2=0
         JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=1
-	    JUCE_USE_WINDOWS_MEDIA_FORMAT=1
         JUCE_LOAD_CURL_SYMBOLS_LAZILY=1
         FF_AUDIO_ALLOW_ALLOCATIONS_IN_MEASURE_BLOCK=0
         PAULXSTRETCH_BUILD_VERSION="${VERSION}"
@@ -408,6 +407,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
             JUCE_ASIO=1
             JUCE_WASAPI=1
             JUCE_DIRECTSOUND=0
+            JUCE_USE_WINDOWS_MEDIA_FORMAT=1
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_compile_definitions("${target_name}"
