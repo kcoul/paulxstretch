@@ -102,7 +102,7 @@ public:
     virtual void createPlugin()
     {
       #if JUCE_MODULE_AVAILABLE_juce_audio_plugin_client
-        processor.reset (::createPluginFilterOfType (AudioProcessor::wrapperType_Standalone));
+        processor.reset (::createPluginFilterOfType (AudioProcessor::wrapperType_Standalone).get());
       #else
         AudioProcessor::setTypeOfNextNewPlugin (AudioProcessor::wrapperType_Standalone);
         processor.reset (createPluginFilter());
@@ -524,11 +524,12 @@ private:
     };
 
     //==============================================================================
-    void audioDeviceIOCallback (const float** inputChannelData,
+    void audioDeviceIOCallbackWithContext (const float* const* inputChannelData,
                                 int numInputChannels,
-                                float** outputChannelData,
+                                float* const* outputChannelData,
                                 int numOutputChannels,
-                                int numSamples) override
+                                int numSamples,
+                                const AudioIODeviceCallbackContext& context) override
     {
         const bool inputMuted = shouldMuteInput.getValue();
 
@@ -538,8 +539,8 @@ private:
             inputChannelData = emptyBuffer.getArrayOfReadPointers();
         }
 
-        player.audioDeviceIOCallback (inputChannelData, numInputChannels,
-                                      outputChannelData, numOutputChannels, numSamples);
+        player.audioDeviceIOCallbackWithContext (inputChannelData, numInputChannels,
+                                      outputChannelData, numOutputChannels, numSamples, context);
     }
 
     void audioDeviceAboutToStart (AudioIODevice* device) override

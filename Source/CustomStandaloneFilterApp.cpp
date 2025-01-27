@@ -3,12 +3,12 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "juce_core/system/juce_TargetPlatform.h"
-#include "juce_audio_plugin_client/utility/juce_CheckSettingMacros.h"
+//#include "juce_audio_plugin_client/utility/juce_CheckSettingMacros.h"
 
-#include "juce_audio_plugin_client/utility/juce_IncludeSystemHeaders.h"
-#include "juce_audio_plugin_client/utility/juce_IncludeModuleHeaders.h"
-#include "juce_audio_plugin_client/utility/juce_FakeMouseMoveGenerator.h"
-#include "juce_audio_plugin_client/utility/juce_WindowsHooks.h"
+//#include "juce_audio_plugin_client/utility/juce_IncludeSystemHeaders.h"
+//#include "juce_audio_plugin_client/utility/juce_IncludeModuleHeaders.h"
+//#include "juce_audio_plugin_client/utility/juce_FakeMouseMoveGenerator.h"
+//#include "juce_audio_plugin_client/utility/juce_WindowsHooks.h"
 
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <juce_gui_extra/juce_gui_extra.h>
@@ -63,11 +63,15 @@ public:
 
     }
 
-    void urlOpened(const URL& url) override    {
+    bool urlOpened(const URL& url) override    {
 
         DBG("URL opened: " << url.toString(false));
         if (mainWindow.get() != nullptr)
+        {
             mainWindow->pluginHolder->urlOpened(url);
+            return true;
+        }
+        return false;
     }
 
     CustomLookAndFeel  sonoLNF;

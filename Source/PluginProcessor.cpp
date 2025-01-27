@@ -616,7 +616,7 @@ void PaulstretchpluginAudioProcessor::startplay(Range<double> playrange, int num
 		m_recreate_buffering_source = false;
 	}
     if (m_bufferingthread.isThreadRunning() == false) {
-        m_bufferingthread.setPriority(8);
+        m_bufferingthread.setPriority(Thread::Priority::highest);
         m_bufferingthread.startThread();
     }
 	m_stretch_source->setNumOutChannels(numoutchans);
